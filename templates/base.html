@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html id="{% block html_id %}{% endblock %}">
+    <head>
+        <title>Company Name</title>
+        
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta http-equiv="imagetoolbar" content="no"><!-- IE is dumb; turns off IE image toolbar -->
+        
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.6.0/build/reset-fonts-grids/reset-fonts-grids.css">
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.6.0/build/base/base-min.css">
+        <link rel="stylesheet" href="{{ MEDIA_URL }}css/site.css" type="text/css" charset="utf-8">
+        {% block extra_css %}
+        {% endblock extra_css %}
+        
+		{% block site_js %}
+		    <script type="text/javascript" src="http://js.thisismedium.com/min/e0fb91f907e56b5ca049cd93080ea2bf15583ca9/jmod.js">
+            </script>
+            <script type="text/javascript">
+              jMod.config({
+                 path: '/media/js',
+                 debug: {% if debug %} true {% else %} false {% endif %}
+              });
+              jMod.load("elect", "site-local");
+              
+            </script>
+            
+        
+        {% endblock %}
+        	
+        	<!--[if lt IE 7]>
+            
+        	<script type="text/javascript">
+              thunk(imports('lib.jquery', 'ifixpng2'),
+                function($) {
+                  jMod.ready(function() {
+                    $.ifixpng('{{ MEDIA_URL }}images/clear.gif');
+                    $('img').ifixpng();
+                  });
+                });
+            </script>
+            <![endif]-->
+            
+        
+        {% block extra_header %}
+        {% endblock extra_header %}
+    </head>
+    <body id="{{ body_id }}" class="{% block body_class %}{{ body_classes }}{% endblock body_class %} {% block extra_bd_class %}{% endblock %}">
+        {% block bare_min %}
+        <div id="hd">
+                <div class="wrapper">
+                    <h2 class="logo"><a href="/">Company Name</a></h2>
+
+                    {% block navigation %}
+
+                    {% load navurl %}
+                        
+                        <ul class="main-nav">
+                            <li class="nav-about first {% filter navurl:request %}/about/{% endfilter %}">
+                                <span><a href="/about/" onfocus="this.blur();">About</a></span>
+                            </li>
+                            <li class="nav-another {% filter navurl:request %}/another/{% endfilter %}">
+                                <span><a href="/another/" onfocus="this.blur();">Another</a></span>
+                            </li>
+                        </ul>
+                        
+                        
+                        
+                    {% endblock navigation %}
+
+
+                </div><!-- WRAPPER DIV -->
+        </div><!-- HD DIV -->
+        
+        
+        <div id="bd">
+            <div class="wrapper">
+                        
+            {% block no_main_content %}
+                <div id="main">
+                    {% block main %}
+                    <p>Stuff here</p>
+                    {% endblock main %}
+                </div><!-- MAIN DIV -->
+                
+                <div id="sidebar">
+                    {% block sidebar %}
+                    {% endblock sidebar %}
+                </div>
+            {% endblock no_main_content %}
+            </div><!-- WRAPPER DIV -->
+        </div><!-- BD DIV -->
+        
+        
+        <div id="ft">
+        </div><!-- FT DIV -->
+        
+        {% endblock bare_min %}
+        
+    </body>
+</html>
